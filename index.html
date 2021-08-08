@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Api</title>
+  </head>
+  <body>
+    <h1>JSON</h1>
+    <h2>Javascript object Notation</h2>
+    <h3> user list </h3>
+    <ul id="user_list">
+
+    </ul>
+    <h3> User Image</h3>
+ <ol id="user_images">
+
+ </ol>
+
+
+    <script>
+      const user = {
+        id: 254,
+        username: "bayezid",
+        lover: {
+          name: "Ayesha",
+          age: 15,
+          Fvfood: "Date",
+        },
+        friendAge: [19, 18, 12, 35],
+        friends: ["kamal", "jamal", "manik"],
+      };
+
+      const userJson = JSON.stringify(user); //convert object to JSON
+
+      console.log(userJson);
+
+      const userObject = JSON.parse(userJson); // convert JSON to object
+      console.log(userObject);
+       
+    //   get data from api 
+
+    //   fetch("https://jsonplaceholder.typicode.com/users")
+    //     .then((response) => response.json())
+    //     .then((json) => console.log(json));
+        
+        
+        
+        
+        fetch("https://jsonplaceholder.typicode.com/users")
+        .then((response) => response.json())
+        .then((json) => listusers(json));
+ 
+
+        function listusers(users){
+            console.log("users",users)
+            const usershow = users.map(user => user.username)
+           console.log(usershow)    
+            const ul = document.getElementById("user_list");
+
+            for (let i = 0; i < usershow.length; i++) {
+                const un = usershow[i];
+                console.log(un)
+                 const li = document.createElement("li")
+                 li.innerText= un
+                 ul.appendChild(li)
+            }
+        
+        
+        }
+         //finishing writing data from api to own website 
+        
+         fetch("https://jsonplaceholder.typicode.com/photos")
+        .then((response) => response.json())
+        .then((json) => imgsource(json));
+       
+        function imgsource(image){
+           console.log("images",image)
+           const userImg = image.map(image => image.url)
+          console.log(userImg);
+
+          const ol=  document.getElementById("user_images")
+
+          for (let i = 0; i < userImg.length; i++) {
+              const useri = userImg[i];
+               const sli = document.createElement("li")
+               sli.innerText = useri
+               ol.appendChild(sli)
+           
+
+          }
+            
+
+
+        }
+
+
+
+
+
+
+    </script>
+  </body>
+</html>
